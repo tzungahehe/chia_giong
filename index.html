@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luyện Giống Tiếng Bồ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #121826;
+      color: #fff;
+      margin: 0;
+    }
+    .card {
+      background: #1f293d;
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      width: 340px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .score { font-size: 16px; color: #94a3b8; margin-bottom: 20px; }
+    .word { font-size: 38px; font-weight: bold; color: #38bdf8; margin: 10px 0; }
+    .meaning { font-size: 16px; color: #cbd5e1; min-height: 24px; margin-bottom: 25px; }
+    .btns { display: flex; gap: 12px; }
+    button {
+      flex: 1;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #fff;
+    }
+    .btn-m { background: #0284c7; }
+    .btn-f { background: #ec4899; }
+    .result { margin-top: 20px; font-weight: bold; min-height: 24px; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="score">Điểm: <span id="score">0</span></div>
+    <div class="word" id="word">Đang tải...</div>
+    <div class="meaning" id="meaning"></div>
+    <div class="btns">
+      <button class="btn-m" onclick="choose('m')">O / Um (Đực)</button>
+      <button class="btn-f" onclick="choose('f')">A / Uma (Cái)</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    let list = [];
+    let current = null;
+    let score = 0;
+
+    // Đọc dữ liệu từ file words.json
+    fetch('./words.json')
+      .then(res => res.json())
+      .then(data => {
+        list = data;
+        nextWord();
+      })
+      .catch(err => {
+        document.getElementById('word').innerText = "Lỗi nạp file!";
+      });
+
+    function nextWord() {
+      document.getElementById('result').innerText = "";
+      current = list[Math.floor(Math.random() * list.length)];
+      document.getElementById('word').innerText = current.word;
+      document.getElementById('meaning').innerText = current.meaning;
+    }
+
+    function choose(gender) {
+      const resEl = document.getElementById('result');
+      if (gender === current.gender) {
+        score += 10;
+        resEl.style.color = '#4ade80';
+        resEl.innerText = `Chính xác! (${current.gender === 'm' ? 'o' : 'a'} ${current.word})`;
+      } else {
+        resEl.style.color = '#f87171';
+        resEl.innerText = `Sai rồi! Đáp án: ${current.gender === 'm' ? 'o' : 'a'} ${current.word}`;
+      }
+      document.getElementById('score').innerText = score;
+      setTimeout(nextWord, 1200);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+[
+  { "word": "problema", "gender": "m", "meaning": "vấn đề" },
+  { "word": "cidade", "gender": "f", "meaning": "thành phố" },
+  { "word": "dia", "gender": "m", "meaning": "ngày" },
+  { "word": "noite", "gender": "f", "meaning": "đêm" },
+  { "word": "coração", "gender": "m", "meaning": "trái tim" },
+  { "word": "canção", "gender": "f", "meaning": "bài hát" },
+  { "word": "mapa", "gender": "m", "meaning": "bản đồ" },
+  { "word": "foto", "gender": "f", "meaning": "bức ảnh" },
+  { "word": "café", "gender": "m", "meaning": "cà phê" },
+  { "word": "água", "gender": "f", "meaning": "nước" }
+]
